@@ -1,0 +1,29 @@
+id: api-flow
+namespace: dev
+tasks:
+  - id: wdir
+    type: io.kestra.core.tasks.flows.WorkingDirectory
+    tasks:
+    - id: get-users
+      type: io.kestra.plugin.scripts.python.Script
+      runner: DOCKER
+      docker:
+        image: python:3.11-slim
+      beforeCommands:
+        - pip install requests > /dev/null
+      warningOnStdErr: false
+      script: |
+        import json
+        import requests
+
+        URL = "https://gorest.co.in/public/v2/users"
+        req = requests.get(url=URL)
+        res = req.json()
+
+        with open("users.json", "w") as f:
+            json.dump(res, f)
+
+    - id: save-users
+      type: io.kestra.core.tasks.storages.LocalFiles
+      outputs:
+        - users.json

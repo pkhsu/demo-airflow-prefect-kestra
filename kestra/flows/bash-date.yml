@@ -1,0 +1,7 @@
+id: date-task
+namespace: dev
+tasks:
+  - id: get-datetime
+    type: io.kestra.core.tasks.scripts.Bash
+    commands:
+      - 'date'

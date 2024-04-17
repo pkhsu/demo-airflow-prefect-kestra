@@ -1,0 +1,27 @@
+id: flow-001  
+namespace: dev
+tasks:
+  - id: bash-print-1
+    type: io.kestra.core.tasks.log.Log
+    message: Hello world from bash print 1!
+
+  - id: bash-print-2
+    type: io.kestra.core.tasks.log.Log
+    message: Hello world from bash print 2!
+  
+  - id: python-print-1
+    type: io.kestra.core.tasks.scripts.Python
+    inputFiles:
+      data.json: |
+        {"status": "OK"}
+      main.py: |
+        import json
+        import sys
+        result = json.loads(open(sys.argv[1]).read())
+        print(f"python script {result['status']}")
+    args:
+      - data.json
+triggers:
+  - id: schedule
+    type: io.kestra.core.models.triggers.types.Schedule
+    cron: "*/15 * * * *"
