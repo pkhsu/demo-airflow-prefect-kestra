@@ -17,7 +17,7 @@ def save_users(users: dict, path: str):
 
 
 @flow
-def deployed_flow():
+def user_api_flow():
     URL = "https://gorest.co.in/public/v2/users"
     users = get_users(url=URL)
     save_users(users=users, path="users.json")
@@ -25,11 +25,11 @@ def deployed_flow():
 # Register deployment from flow via python function. Alternative is CLI.
 # def deploy():
 #     deployment = Deployment.build_from_flow(
-#         flow=deployed_flow,
+#         flow=user_api_flow,
 #         name="prefect-deployment"
 #     )
 #     deployment.apply()
 
 if __name__ == "__main__":
     # deploy()
-    deployed_flow()
+    user_api_flow()
