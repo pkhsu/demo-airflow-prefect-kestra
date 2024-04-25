@@ -16,6 +16,7 @@ def save_users(ti) -> None:
 with DAG(
     dag_id="airflow_user_api_dag",
     start_date=datetime(2023, 7, 10),
+    schedule_interval="@hourly", # Add scheduled config @once, @hourly, @daily, @weekly, @monthly, @yearly or cron
     catchup=False
 ) as dag:
     task_get = SimpleHttpOperator(

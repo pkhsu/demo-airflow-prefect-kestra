@@ -65,6 +65,17 @@ services:
     environment:
       - PREFECT_API_URL=http://prefect:4200/api
 
+  ### MinIO for flow storage
+  minio:
+    image: minio/minio:latest
+    entrypoint: ["minio", "server", "--address", "0.0.0.0:9000", "--console-address", "0.0.0.0:9001", "/data"]
+    volumes:
+      - "minio_data:/data"
+    ports:
+      - 9000:9000
+      - 9001:9001
+    profiles: ["minio"]
+
 volumes:
   minio_data:
   prefect-db:

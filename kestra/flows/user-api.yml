@@ -27,3 +27,9 @@ tasks:
       type: io.kestra.core.tasks.storages.LocalFiles
       outputs:
         - users.json
+
+# For schedule task
+triggers:
+  - id: schedule
+    type: io.kestra.core.models.triggers.types.Schedule
+    cron: 0 * * * *
